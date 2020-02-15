@@ -109,5 +109,25 @@ class senseHAT:
             self.sense.show_message('Water will freeze at current temp')
         else:
             self.sense.show_message('Water will not freeze right now')
+    
+    # Detecting Movement using IMU
+    def detectMovement(self):
+        while True:
+            acceleration = self.sense.get_accelerometer_raw()
+
+            x = acceleration['x']
+            y = acceleration['y']
+            z = acceleration['z']
+
+            x = abs(x)
+            y = abs(y)
+            z = abs(z)
+
+            if x > 1 or y > 1 or z > 1:
+                self.sense.show_letter('!', self.red)
+            else:
+                self.sense.clear()
+
+
 
 
