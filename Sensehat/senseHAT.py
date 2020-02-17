@@ -128,6 +128,42 @@ class senseHAT:
             else:
                 self.sense.clear()
 
+    # Using the joystick
+    def joystick(self):
+        choice = input(
+            'Enter the key of what you want to do: \n 1 - Show on terminal directions \n 2 - Show on LED Matrix \n '
+        )
+
+        if choice == '1':
+            while True:
+                for event in self.sense.stick.get_events():
+                    print(event.direction, event.action)
+        elif choice == '2':
+            e = self.black
+            w = self.white
+
+            self.sense.clear()
+            while True:
+                for event in self.sense.stick.get_events():
+                    if event.action == 'pressed':
+
+                        if event.direction == 'up':
+                            self.sense.show_letter('U')
+                        elif event.direction == 'down':
+                            self.sense.show_letter('D')
+                        elif event.direction == 'left':
+                            self.sense.show_letter('L')
+                        elif event.direction == 'right':
+                            self.sense.show_letter('R')
+                        elif event.direction == 'middle':
+                            self.sense.show_letter('M')
+                        
+                        sleep(0.5)
+                        self.sense.clear()
+
+
+
+                            
 
 
 
