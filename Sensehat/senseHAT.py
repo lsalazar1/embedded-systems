@@ -161,10 +161,3 @@ class senseHAT:
                         
                         sleep(0.5)
                         self.sense.clear()
-
-
-
-                            
-x = senseHAT()
-
-x.detectMovement()
