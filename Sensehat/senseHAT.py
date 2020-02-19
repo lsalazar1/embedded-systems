@@ -77,21 +77,21 @@ class senseHAT:
         ]
 
         if option == 'horizontal':
-            for i in range(5):
-                self.sense.flip_h()
+                self.sense.flip_h(image)
         elif option == 'vertical':
-            for i in range(5):
                 self.sense.flip_v()
         elif option == 'rotate':
             rotation = int(input('Enter degrees to rotate: '))
             self.sense.set_rotation(rotation)
+        else:
+            self.sense.set_pixels(image)
 
     # Output environment details to LED Matrix
-    def getEnironment(self):
+    def getEnvironment(self):
         # get_temperature() returns celsius... convert this to farenheit
-        temp = self.sense.get_temperature() * 1.8 + 32
-        humidty = self.sense.get_humidity()
-        pressure = self.sense.get_pressure()
+        temp = round(self.sense.get_temperature() * 1.8 + 32, 2)
+        humidty = round(self.sense.get_humidity(), 2)
+        pressure = round(self.sense.get_pressure(), 2)
 
         tempMessage = "Temperature: " + str(temp) + "F"
         humidtyMessage = "Humidity: " + str(humidty) + "%"
@@ -127,6 +127,7 @@ class senseHAT:
                 self.sense.show_letter('!', self.red)
             else:
                 self.sense.clear()
+                
 
     # Using the joystick
     def joystick(self):
@@ -164,6 +165,6 @@ class senseHAT:
 
 
                             
+x = senseHAT()
 
-
-
+x.detectMovement()
