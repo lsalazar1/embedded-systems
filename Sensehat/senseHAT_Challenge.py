@@ -4,17 +4,18 @@ from random import choice
 
 # Function sets pixels to look like an arrow given a color param
 def arrow(c):
-    arrow = [
-        0, 0, 0, c, 0, 0, 0, 0,
-        0, 0, c, c, c, 0, 0, 0,
-        0, c, c, c, c, c, 0, 0,
-        c, c, c, c, c, c, c, 0,
-        0, 0, c, c, c, 0, 0, 0,
-        0, 0, c, c, c, 0, 0, 0,
-        0, 0, c, c, c, 0, 0, 0
+    a = [
+        black, black, black, c, black, black, black, black,
+        black, black, c, c, c, black, black, black,
+        black, c, c, c, c, c, black, black,
+        c, c, c, c, c, c, c, black,
+        black, black, c, c, c, black, black, black,
+        black, black, c, c, c, black, black, black,
+        black, black, c, c, c, black, black, black,
+        black, black, black, black, black, black, black,black
     ]
-
-    return arrow
+    
+    return a
 
 # Create sensehat obj
 sense = SenseHat()
@@ -51,6 +52,30 @@ while play:
     sleep(pause)
 
     acceleration = sense.get_accelerometer_raw()
-    x = acceleration['x']
-    y = acceleration['y']
-    z = acceleration['z']
+    
+    x = round(acceleration['x'], 0)
+    y = round(acceleration['y'], 0)
+    z = round(acceleration['z'], 0)
+    
+    if x == -1 and angle == 180:
+        sense.set_pixels(greenArrow)
+        score += 1
+    elif x == 1 and angle == 0:
+        sense.set_pixels(greenArrow)
+        score += 1
+    elif y == -1 and angle == 90:
+        sense.set_pixels(greenArrow)
+        score += 1
+    elif y == 1 and angle == 270:
+        sense.set_pixels(greenArrow)
+        score += 1
+    else:
+        sense.set_pixels(redArrow)
+        play = False
+    
+    pause = pause * 0.95
+    
+    sleep(1)
+    
+msg = "Score: {}".format(score)
+sense.show_message(msg, text_colour=red, back_colour = white)
