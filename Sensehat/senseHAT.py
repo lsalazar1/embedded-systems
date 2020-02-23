@@ -79,7 +79,7 @@ class senseHAT:
         if option == 'horizontal':
                 self.sense.flip_h(image)
         elif option == 'vertical':
-                self.sense.flip_v()
+                self.sense.flip_v(image)
         elif option == 'rotate':
             rotation = int(input('Enter degrees to rotate: '))
             self.sense.set_rotation(rotation)
