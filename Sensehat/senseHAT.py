@@ -64,6 +64,7 @@ class senseHAT:
         w = (150, 150, 150)
         e = self.white
         b = self.blue
+        option = option.lower()
 
         image = [
             e,e,e,e,e,e,e,e,
