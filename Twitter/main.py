@@ -1,10 +1,26 @@
-from Listener import *
 from configparser import ConfigParser
+from time import sleep
 
-if __name__ == '__main__':
-    parser = ConfigParser()
-    parser.read('default.ini')
+import tweepy
 
-    consumerKey = parser.get('consumer', 'apiKey')
-    consumerSecret = parser.get('consumer', 'apiSecret')
+# Assign keys and secrets using default.ini
+parser = ConfigParser()
+parser.read('default.ini')
 
+conKey = parser.get('consumer', 'key')
+conSecret = parser.get('consumer', 'secret')
+accessKey = parser.get('access', 'token')
+accessSecret = parser.get('access', 'secret')
+
+# Use OAuthHandler to get access to the Twitter API
+auth = tweepy.OAuthHandler(conKey, conSecret)
+auth.set_access_token(accessKey, accessSecret)
+
+api = tweepy.API(auth)
+
+myTweets = api.home_timeline()
+
+for tweet in myTweets:
+    print(f"Status: {tweet.text}")
+    print(f"Dated Created: {tweet.created_at}")
+    
