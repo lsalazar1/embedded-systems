@@ -1,6 +1,5 @@
 from configparser import ConfigParser
 from time import sleep
-
 import tweepy
 
 # Assign keys and secrets using default.ini
@@ -18,9 +17,12 @@ auth.set_access_token(accessKey, accessSecret)
 
 api = tweepy.API(auth)
 
-myTweets = api.home_timeline()
+# Prompt user for the twitter page they would like to see
+userInput = input('Whose twitter info would you like to see? Enter their screen name: ')
+twitter = api.get_user(userInput)
 
-for tweet in myTweets:
-    print(f"Status: {tweet.text}")
-    print(f"Dated Created: {tweet.created_at}")
+# Use senseHAT to show twitter info
+print(f'Name: {twitter.name}')
+print(f'Latest Status: {twitter.status.text}')
+
     
