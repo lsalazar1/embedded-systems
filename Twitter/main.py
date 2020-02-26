@@ -17,12 +17,15 @@ auth.set_access_token(accessKey, accessSecret)
 
 api = tweepy.API(auth)
 
-# Prompt user for the twitter page they would like to see
-userInput = input('Whose twitter info would you like to see? Enter their screen name: ')
-twitter = api.get_user(userInput)
+try:
+    # Prompt user for the twitter page they would like to see
+    userInput = input('Whose twitter info would you like to see? Enter their screen name: ')
+    twitter = api.get_user(userInput)
 
-# Use senseHAT to show twitter info
-print(f'Name: {twitter.name}')
-print(f'Latest Status: {twitter.status.text}')
+    # Use senseHAT to show twitter info
+    print(f'Name: {twitter.name}')
+    print(f'Latest Status: {twitter.status.text}')
+except tweepy.error.TweepError:
+    print('User not found. Try another user.')
 
     
